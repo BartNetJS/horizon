@@ -69,6 +69,7 @@ class Server {
     const opts = Joi.attempt(user_opts || { }, options_schema);
     this._path = opts.path;
     this._name = opts.project_name;
+    this._max_connections = opts.max_connections;
     this._permissions_enabled = opts.permissions;
     this._auth_methods = { };
     this._request_handlers = new Map();
@@ -152,6 +153,7 @@ class Server {
         res.writeHead(200, {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': opts.access_control_allow_origin,
+          'Access-Control-Allow-Headers': opts.access_control_allow_headers,
         });
         res.end(JSON.stringify(this._auth_methods));
       });

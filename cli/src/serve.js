@@ -83,6 +83,10 @@ const parseArguments = (args) => {
     { type: 'string', metavar: 'yes|no', constant: 'yes', nargs: '?',
       help: 'Whether to allow anonymous Horizon connections.' });
 
+  parser.addArgument([ '--max-connections' ],
+    { type: 'int', metavar: 'MAX_CONNECTIONS',
+      help: 'Maximum number of simultaneous connections server will accept.' });
+
   parser.addArgument([ '--debug' ],
     { type: 'string', metavar: 'yes|no', constant: 'yes', nargs: '?',
       help: 'Enable debug logging.' });
@@ -140,6 +144,11 @@ const parseArguments = (args) => {
   parser.addArgument([ '--access-control-allow-origin' ],
     { type: 'string', metavar: 'URL',
       help: 'The URL of the host that can access auth settings, defaults to "".' });
+
+  parser.addArgument([ '--access-control-allow-headers' ],
+    { type: 'string', metavar: 'HEADERS',
+      help: 'A list of additional headers accepted by CORS, ' +
+      'seperated by commas, defaults to "".' });
 
   parser.addArgument([ '--open' ],
     { action: 'storeTrue',
@@ -335,6 +344,7 @@ const start_horizon_server = (http_servers, opts) =>
     permissions: opts.permissions,
     project_name: opts.project_name,
     access_control_allow_origin: opts.access_control_allow_origin,
+    access_control_allow_headers: opts.access_control_allow_headers,
     auth: {
       token_secret: opts.token_secret,
       allow_unauthenticated: opts.allow_unauthenticated,
@@ -347,6 +357,7 @@ const start_horizon_server = (http_servers, opts) =>
     rdb_user: opts.rdb_user || null,
     rdb_password: opts.rdb_password || null,
     rdb_timeout: opts.rdb_timeout || null,
+    max_connections: opts.max_connections || null,
   });
 
 // `interruptor` is meant for use by tests to stop the server without relying on SIGINT

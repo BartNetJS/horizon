@@ -108,6 +108,7 @@ project_name = "${projectName}"
 # allow_unauthenticated = false
 # auth_redirect = "/"
 # access_control_allow_origin = ""
+# access_control_allow_headers = ""
 #
 `;
 
@@ -162,6 +163,7 @@ const gitignore = () => `\
 rethinkdb_data
 **/*.log
 .hz/secrets.toml
+node_modules
 `;
 
 const parseArguments = (args) => {

@@ -16,10 +16,12 @@ const server = Joi.object({
 
   auth: Joi.object().default({ }),
   access_control_allow_origin: Joi.string().allow('').default(''),
+  access_control_allow_headers: Joi.array().allow([]).default([]),
 
   rdb_user: Joi.string().allow(null),
   rdb_password: Joi.string().allow(null),
   rdb_timeout: Joi.number().allow(null),
+  max_connections: Joi.number().allow(null),
 }).unknown(false);
 
 const auth = Joi.object({
